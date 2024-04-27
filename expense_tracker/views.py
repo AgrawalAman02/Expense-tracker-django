@@ -122,3 +122,6 @@ def update_profile(request, email):
   # Redirect to profile or any other URL after update
     else:
         return redirect('edit_profile', email=email)  # Redirect if not a POST request
+
+def logout(request):
+  return redirect('login')
