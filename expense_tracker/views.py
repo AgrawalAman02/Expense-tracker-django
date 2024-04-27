@@ -102,3 +102,23 @@ def editTransaction(request , id):
     db = expense.objects.filter(user=user_obj).values()
     total_expense = expense.objects.filter(user=user_obj).aggregate(total_amount=Sum('amount'))['total_amount'] or 0
     return render(request, 'welcome.html', {'u': user_obj, 'expense': db, 'total': total_expense})
+
+
+def edit_profile(request,email):
+    u = user.objects.get(email=email)
+    return render(request,'edit_profile.html',{'u':u})
+
+def update_profile(request, email):
+    if request.method == 'POST':
+        new_name = request.POST.get('new_name')
+        new_email = request.POST.get('new_email')
+        # Fetch the user based on the provided email
+        u = user.objects.get(email=email)
+        # Update the user's details
+        u.name = new_name  # Update to user.name
+        u.email = new_email
+        u.save()
+        return redirect('login')
+  # Redirect to profile or any other URL after update
+    else:
+        return redirect('edit_profile', email=email)  # Redirect if not a POST request
