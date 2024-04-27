@@ -15,5 +15,7 @@ urlpatterns = [
     # path('welcome' , views.welcome)
     path('edit_profile/<str:email>/', views.edit_profile, name='edit_profile'),
     path('upd/<str:email>/', views.update_profile, name='update_profile'),
+    path('logout', views.logout),
+
 
 ]
